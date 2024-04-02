@@ -46,8 +46,8 @@ add_library(ghcFilesystem::ghc_filesystem ALIAS ghc_filesystem)
 target_include_directories(ghc_filesystem INTERFACE
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
     $<INSTALL_INTERFACE:include>)
-target_compile_options(ghc_filesystem INTERFACE "$<$<C_COMPILER_ID:MSVC>:/utf-8>")
-target_compile_options(ghc_filesystem INTERFACE "$<$<CXX_COMPILER_ID:MSVC>:/utf-8>")
+target_compile_options(ghc_filesystem INTERFACE $<IF:$<COMPILE_LANGUAGE:CUDA>,,$<$<C_COMPILER_ID:MSVC>:/utf-8>>)
+target_compile_options(ghc_filesystem INTERFACE $<IF:$<COMPILE_LANGUAGE:CUDA>,,$<$<CXX_COMPILER_ID:MSVC>:/utf-8>>)
 
 if(GHC_FILESYSTEM_BUILD_TESTING OR GHC_FILESYSTEM_BUILD_EXAMPLES)
     set(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
